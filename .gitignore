@@ -1,0 +1,9 @@
+ICCV2019_MirrorNet/__pycache__
+ICCV2019_MirrorNet/.venv
+ICCV2019_MirrorNet/backbone/resnext/__pycache__
+ICCV2019_MirrorNet/backbone/resnext/*.pth
+ICCV2019_MirrorNet/ckpt/MirrorNet/160.pth
+
+ml-depth-pro/.vscode
+ml-depth-pro/checkpoints/*
+ml-depth-pro/src/depth_pro/__pycache__
