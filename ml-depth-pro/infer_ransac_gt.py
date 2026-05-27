@@ -16,6 +16,7 @@ args = parser.parse_args()
 IMG = args.img
 IMG_PATH = f"./data/image/img{IMG}.jpg"
 MASK_SLOPPY = f"./data/mask_sloppy/img{IMG}.png"
+MASK = f"./data/mask/img{IMG}.png"
 DEPTH = f"./data/depth/img{IMG}.npy"
 DEPTH_CORR = f"./data/depth_corr/img{IMG}.npy"
 DEPTH_GT = f"./data/depth_gt/img{IMG}.npy"
@@ -87,21 +88,21 @@ image_tensor = transform(image)
 
 print("Running Apple Depth Pro inference...")
 prediction = model.infer(image_tensor, f_px=f_px)
-depth_pred = prediction["depth"].detach().cpu().numpy().squeeze()
+depth = prediction["depth"].detach().cpu().numpy().squeeze()
 
-print("Loading Ground Truth depth...")
-depth_gt = np.load(DEPTH_GT)
+print("Processing Predicted Depth with perfect Mask")
+depth_gt = apply_ransac_correction(depth, MASK)
 
 print("\nProcessing Predicted Depth with SLOPPY Mask...")
-corrected_depth_pred = apply_ransac_correction(depth_pred, MASK_SLOPPY)
+depth_corr = apply_ransac_correction(depth, MASK_SLOPPY)
 
 # ==========================================
 # 4. Visualization & Saving
 # ==========================================
 print("\nPreparing final plots...")
 
-inv_pred = get_inverse_depth_viz(depth_pred)
-inv_pred_corr = get_inverse_depth_viz(corrected_depth_pred)
+inv_pred = get_inverse_depth_viz(depth)
+inv_pred_corr = get_inverse_depth_viz(depth_corr)
 inv_gt = get_inverse_depth_viz(depth_gt)
 
 fig, axs = plt.subplots(1, 3, figsize=(18, 6))
@@ -122,8 +123,8 @@ axs[2].axis("off")
 plt.tight_layout()
 
 print("\nSaving predicted depth maps...")
-np.save(DEPTH, depth_pred)
-np.save(DEPTH_CORR, corrected_depth_pred)
+np.save(DEPTH, depth)
+np.save(DEPTH_CORR, depth_corr)
 np.save(DEPTH_GT, depth_gt)
 
 plt.show()
