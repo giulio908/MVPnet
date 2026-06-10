@@ -12,7 +12,7 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 
-from backbone.resnext.resnext101_regular import ResNeXt101
+from .backbone.resnext.resnext101_regular import ResNeXt101
 
 
 ###################################################################

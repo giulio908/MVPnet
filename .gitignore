@@ -4,6 +4,12 @@ ICCV2019_MirrorNet/backbone/resnext/__pycache__
 ICCV2019_MirrorNet/backbone/resnext/*.pth
 ICCV2019_MirrorNet/ckpt/MirrorNet/160.pth
 
-ml-depth-pro/.vscode
-ml-depth-pro/checkpoints/*
-ml-depth-pro/src/depth_pro/__pycache__
+ml_depth_pro/.vscode
+ml_depth_pro/checkpoints/*
+ml_depth_pro/data/*
+ml_depth_pro/src/depth_pro/__pycache__
+
+checkpoints/mvpnet_5_10_02.pth
+
+__pycache__
+.vscode

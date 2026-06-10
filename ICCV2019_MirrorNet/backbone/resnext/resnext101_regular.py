@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 
-from backbone.resnext import resnext_101_32x4d_
+from . import resnext_101_32x4d_
 
 
 class ResNeXt101(nn.Module):
