@@ -152,3 +152,4 @@ trained_model = train_model(
    num_epochs=75
 )
 print("Addestramento completato e modello salvato!")
+torch.save(trained_model.state_dict(), "mirror_unet_freeres_5_10_02.pth")
